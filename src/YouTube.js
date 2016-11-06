@@ -73,7 +73,7 @@ function shouldUpdatePlayer(prevProps, props) {
 class YouTube extends React.Component {
   static propTypes = {
     videoId: PropTypes.string,
-
+    playbackQuality: PropTypes.string,
     // custom ID for player element
     id: PropTypes.string,
 
@@ -231,6 +231,9 @@ class YouTube extends React.Component {
       videoId: this.props.videoId,
     };
     this.internalPlayer = youTubePlayer(this.container, playerOpts);
+    if (this.props.playbackQuality) {
+      this.internalPlayer.setPlaybackQuality(this.props.playbackQuality);
+    }
     // attach event handlers
     this.internalPlayer.on('ready', this.onPlayerReady);
     this.internalPlayer.on('error', this.onPlayerError);
