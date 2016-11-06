@@ -21,6 +21,7 @@ const setupYouTube = () => {
     loadVideoById: expect.createSpy().andReturn(Promise.resolve()),
     getIframe: expect.createSpy().andReturn(Promise.resolve()),
     stopVideo: expect.createSpy().andReturn(Promise.resolve()),
+    setPlaybackQuality: expect.createSpy().andReturn(Promise.resolve()),
     destroy: expect.createSpy().andReturn(Promise.resolve()),
   };
   const playerMock = expect.createSpy().andReturn(playerMethods);

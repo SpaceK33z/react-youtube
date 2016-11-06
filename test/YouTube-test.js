@@ -287,6 +287,21 @@ describe('YouTube', () => {
     });
   });
 
+  it('should load a video with custom playback quality', () => {
+    const { playerMock, rerender } = fullRender({
+      id: 'quality-video',
+      videoId: 'BL0OvdTqzBs',
+      playbackQuality: 'small',
+    });
+
+    rerender({
+      videoId: '-BL0OvdTqzBs',
+    });
+
+    expect(playerMock).toHaveBeenCalled();
+    expect(playerMock.setPlaybackQuality).toHaveBeenCalledWith('small');
+  });
+
   it('should destroy the youtube player', () => {
     const { playerMock, unmount } = fullRender({
       videoId: 'XxVg_s8xAms',
