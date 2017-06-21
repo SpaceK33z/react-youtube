@@ -1,36 +1,17 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _lodash = require('lodash.isequal');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _youtubePlayer = require('youtube-player');
-
-var _youtubePlayer2 = _interopRequireDefault(_youtubePlayer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+import PropTypes from 'prop-types';
+import React from 'react';
+import isEqual from 'lodash.isequal';
+import youTubePlayer from 'youtube-player';
 
 /**
  * Check whether a `props` change should result in the video being updated.
@@ -79,7 +60,7 @@ function filterResetOptions(opts) {
  * @param {Object} props
  */
 function shouldResetPlayer(prevProps, props) {
-  return !(0, _lodash2.default)(filterResetOptions(prevProps.opts), filterResetOptions(props.opts));
+  return !isEqual(filterResetOptions(prevProps.opts), filterResetOptions(props.opts));
 }
 
 /**
@@ -145,7 +126,7 @@ var YouTube = function (_React$Component) {
         // preload the `videoId` video if one is already given
         videoId: _this.props.videoId
       });
-      _this.internalPlayer = (0, _youtubePlayer2.default)(_this.container, playerOpts);
+      _this.internalPlayer = youTubePlayer(_this.container, playerOpts);
       if (_this.props.playbackQuality) {
         _this.internalPlayer.setPlaybackQuality(_this.props.playbackQuality);
       }
@@ -316,38 +297,38 @@ var YouTube = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
+      return React.createElement(
         'span',
         null,
-        _react2.default.createElement('div', { id: this.props.id, className: this.props.className, ref: this.refContainer })
+        React.createElement('div', { id: this.props.id, className: this.props.className, ref: this.refContainer })
       );
     }
   }]);
 
   return YouTube;
-}(_react2.default.Component);
+}(React.Component);
 
 YouTube.propTypes = {
-  videoId: _propTypes2.default.string,
-  playbackQuality: _propTypes2.default.string,
+  videoId: PropTypes.string,
+  playbackQuality: PropTypes.string,
   // custom ID for player element
-  id: _propTypes2.default.string,
+  id: PropTypes.string,
 
   // custom class name for player element
-  className: _propTypes2.default.string,
+  className: PropTypes.string,
 
   // https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player
-  opts: _propTypes2.default.object,
+  opts: PropTypes.object,
 
   // event subscriptions
-  onReady: _propTypes2.default.func,
-  onError: _propTypes2.default.func,
-  onPlay: _propTypes2.default.func,
-  onPause: _propTypes2.default.func,
-  onEnd: _propTypes2.default.func,
-  onStateChange: _propTypes2.default.func,
-  onPlaybackRateChange: _propTypes2.default.func,
-  onPlaybackQualityChange: _propTypes2.default.func
+  onReady: PropTypes.func,
+  onError: PropTypes.func,
+  onPlay: PropTypes.func,
+  onPause: PropTypes.func,
+  onEnd: PropTypes.func,
+  onStateChange: PropTypes.func,
+  onPlaybackRateChange: PropTypes.func,
+  onPlaybackQualityChange: PropTypes.func
 };
 YouTube.defaultProps = {
   opts: {},
@@ -368,4 +349,6 @@ YouTube.PlayerState = {
   BUFFERING: 3,
   CUED: 5
 };
-exports.default = YouTube;
+
+
+export default YouTube;
